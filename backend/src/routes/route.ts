@@ -1,5 +1,6 @@
 import {Router} from 'express'
 import { ArticleController } from '../controllers/ArticleController'
+import { AuthorizationController } from '../controllers/AuthorizationController'
 import { CategoryController } from '../controllers/CategoryController'
 import { UserController } from '../controllers/UserController'
 
@@ -8,22 +9,47 @@ const router = Router()
 const userController = new UserController()
 const categoryController = new CategoryController()
 const articleController = new ArticleController()
+const auth = new AuthorizationController()
 
-router.post('/users', userController.save)
-router.delete('/users/:id', userController.delete)
-router.put('/users/:id', userController.update)
-router.get('/users/:id', userController.findById)
-router.get('/users', userController.listAllUsers)
+router.post('/validateToken', auth.validateToken)
+router.post('signin', auth.signin)
 
-router.post('/category', categoryController.save)
-router.get('/category/tree', categoryController.getTree)
-router.get('/category/:id', categoryController.findById)
-router.get('/category', categoryController.listAll)
+router.route('/users')
+    .all(auth.verifyToken)
+    .post(userController.save)
+    .get(userController.listAllUsers)
 
-router.post('/article', articleController.save)
-router.delete('/article/:id', articleController.delete)
-router.get('/article/:id', articleController.findById)
-router.get('/article', articleController.listAll)
+router.route('/users/:id')
+    .all(auth.verifyToken)
+    .delete(userController.delete)
+    .put(userController.update)
+    .get(userController.findById)
+
+router.route('/category')
+    .all(auth.verifyToken)
+    .post(categoryController.save)
+    .get(categoryController.listAll)
+
+router.route('/category/tree')
+    .all(auth.verifyToken)
+    .get(categoryController.getTree)
+
+
+router.route('/category/:id')
+    .all(auth.verifyToken)
+    .get(categoryController.findById)
+
+
+router.route('/article')
+    .all(auth.verifyToken)
+    .post(articleController.save)
+    .get(articleController.listAll)
+
+router.route('/article/:id')
+    .all(auth.verifyToken)
+    .delete(articleController.delete)
+    .get(articleController.findById)
+
 
 export {router}
 
