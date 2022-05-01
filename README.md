@@ -2,7 +2,8 @@
 
 ## Descrição 📝
 
-- Projeto Base de Conhecimento. Um projeto básico para praticar Testes com jest e criação de API com TypeScript.
+- Projeto Base de Conhecimento. Um projeto básico para praticar Testes com jest , criação de API com TypeScript
+React/Next e Tailwins CSS.
 
 > Projeto já foi feito anteriormente, porém com Vue Js 2
 >* [link] https://github.com/RamiresMatias/Base-de-Conhecimento 

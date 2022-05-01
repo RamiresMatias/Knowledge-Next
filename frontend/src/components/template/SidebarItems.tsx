@@ -14,7 +14,7 @@ export default function SidebarItems(props: SidebarItemsProps) {
         return (
             <a className={`
                 flex flex-col justify-center items-center
-                w-20 h-20 
+                w-full h-20 
                 dark:text-gray-200
                 text-gray-700 ${props.className}`
             }>

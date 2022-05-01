@@ -20,7 +20,7 @@ export default function Layout(props: LayoutProps) {
                 <Sidebar />
                 <div className={`
                     flex flex-col 
-                    w-full p-7 bg-gray-400 dark:bg-gray-800
+                    w-5/6 p-7 bg-gray-400 dark:bg-gray-800
                 `}>
                     <Topbar title={props.title} subtitle={props.subtitle} />
                     <Content>

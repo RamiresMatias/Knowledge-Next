@@ -3,7 +3,9 @@ import User from "../../model/User";
 import router from 'next/router'
 import firebase from "../../firebase/config";
 import cookies from 'js-cookie'
-import api from '../../services/user'
+import apiUser from '../../services/userServices'
+import { ApiDataProvider } from "./ApiDataContext";
+import axios from "axios";
 
 interface AuthContextProps {
     user?: User
@@ -86,7 +88,8 @@ export function AuthPovider(props) {
 
     async function validateToken(userFirebase: firebase.User){
         const token = await userFirebase.getIdToken()
-        return await api.validateToken(token)
+        axios.defaults.headers.common['Authorization'] = token;
+        await apiUser.validateToken(token)
     }
 
     async function register(email: string, password: string) {
@@ -132,7 +135,9 @@ export function AuthPovider(props) {
             login,
             register
         }}>
-            {props.children}
+            <ApiDataProvider>
+                {props.children}
+            </ApiDataProvider>
         </AuthContext.Provider>
     )
 }

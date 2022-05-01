@@ -7,7 +7,7 @@ export class AuthorizationController {
     async verifyToken(request: Request, response: Response, next: NextFunction) {
         try {
             response.header("Access-Control-Allow-Origin", "*");
-            const token = request.headers.token
+            const token = request.headers.authorization
             await firebase.auth().verifyIdToken(token)
             next()
         } catch (error) {
@@ -17,7 +17,7 @@ export class AuthorizationController {
 
     async validateToken(request: Request, response: Response) {
         try {
-            const token = request.headers.token
+            const token = request.headers.authorization
             await firebase.auth().verifyIdToken(token)
             return response.status(200).json({authenticate: true})
         } catch (error) {
